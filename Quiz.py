@@ -10,3 +10,52 @@ resultsMsg = ["TOUGH LUCK","NICE TRY","WELL DONE","SPECTACULAR"]
 overallMark = ["NOT ACHIEVED","ACHIEVED","MERIT","EXCELLENCE"]
 requiredScore = [0,4,7,10,12]
 
+def setUp():
+    global root
+    root = Tk()
+    root.title("BALAZO SCIENCE QUIZ")
+    root.configure(bg="#4a86e8")
+    root.geometry('1000x700')
+
+    global pageFont
+    pageFont = Font(family="Calibri", size=20, weight="bold")
+
+    menuTitle = Label(root, text="BALAZO SCIENCE QUIZ", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
+    menuTitle.place(x=300, y=60)
+
+    menuPlay = Button(root, text="PLAY", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=130, pady=5, borderwidth=0, command=detQstns)
+    menuPlay.place(x=340, y=500)
+
+    menuExit = Button(root, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=134, pady=5, borderwidth=0, command=exit)
+    menuExit.place(x=340, y=580)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    root.mainloop()
+
+
+#def CALC.SCORE():
+
+#def CALC.MARK():
+
+
+
+
+
+
+setUp()
+
+
+
