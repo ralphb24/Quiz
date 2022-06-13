@@ -10,6 +10,47 @@ resultsMsg = ["TOUGH LUCK","NICE TRY","WELL DONE","SPECTACULAR"]
 overallMark = ["NOT ACHIEVED","ACHIEVED","MERIT","EXCELLENCE"]
 requiredScore = [0,4,7,10,12]
 
+def detQstns():
+    global root
+    root.destroy()
+    qRoot = Tk()
+    qRoot.title("BALAZO SCIENCE QUIZ")
+    qRoot.configure(bg="#4a86e8")
+    qRoot.geometry('1000x700')
+   
+    global qLCV
+    qLCV = 0
+   
+    global pageFont
+    pageFont = Font(family="Calibri", size=20, weight="bold")
+   
+    global questions
+    questions = random.sample(questionsList,12)
+
+    while qLCV < 12:
+        qLabel = Label(qRoot, text="Question "+str(qLCV+1)+"."+"\n"+questions[qLCV][0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
+        qLabel.place(x=500, y=100,anchor="center")
+
+        ansOne = Button(qRoot, text="1", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+        ansOne.place(x=270, y=400)
+
+        ansTwo = Button(qRoot, text="2", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+        ansTwo.place(x=500, y=400)
+
+        ansThree = Button(qRoot, text="3", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+        ansThree.place(x=270, y=500)
+
+        ansFour = Button(qRoot, text="4", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+        ansFour.place(x=500, y=500)
+            
+        exitBut = Button(qRoot, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=80, pady=5, borderwidth=0)
+        exitBut.place(x=100, y=600)
+            
+        skipBut = Button(qRoot, text="SKIP", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=80, pady=5, borderwidth=0)
+        skipBut.place(x=700, y=600)
+
+    qLCV += 1
+
 def setUp():
     global root
     root = Tk()
