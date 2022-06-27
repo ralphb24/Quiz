@@ -1,8 +1,10 @@
 from doctest import SkipDocTestCase
 from tkinter import *
 import random
+from tkinter import scrolledtext
 from tkinter.font import Font
 from unittest import skip
+from matplotlib.markers import MarkerStyle
 from matplotlib.pyplot import close
 from numpy import append
 
@@ -24,8 +26,17 @@ def detQstns():
     global totQstns
     totQstns = 12
 
+    global score
+    score = 0 
+
     global skipCount
     skipCount = 0
+
+    global ansOne
+    global ansTwo
+    global ansThree
+    global ansFour
+    global skipBut
 
     while qLCV < totQstns:
         global qRoot
@@ -54,16 +65,16 @@ def detQstns():
             temp.append(questions[qLCV][4])
             temp = random.sample(temp, len(temp))
             
-            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(0))
             ansOne.place(x=270, y=400)
 
-            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(1))
             ansTwo.place(x=500, y=400)
 
-            ansThree = Button(qRoot, text=temp[2], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+            ansThree = Button(qRoot, text=temp[2], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(2))
             ansThree.place(x=270, y=500)
 
-            ansFour = Button(qRoot, text=temp[3], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+            ansFour = Button(qRoot, text=temp[3], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(3))
             ansFour.place(x=500, y=500)
         
         else:
@@ -71,15 +82,17 @@ def detQstns():
             temp.append(questions[qLCV][1])
             temp.append(questions[qLCV][2])
             temp = random.sample(temp, len(temp))
-            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(0))
             ansOne.place(x=270, y=400)
 
-            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0)
+            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(1))
             ansTwo.place(x=500, y=400)
                     
 
         qRoot.mainloop()
         qLCV += 1
+    
+    calcMark()
 
 def skipQstn():
     global skipCount
@@ -111,13 +124,48 @@ def setUp():
 
     root.mainloop()
 
-#def calcScore():
+def calcScore(answer):
+    pageFont = Font(family="Calibri", size=20, weight="bold")
+    global score
 
+    if temp[answer] == questions[qLCV][1]:
+        ansMsg = Label(qRoot, text="Correct!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0,)
+        ansMsg.place(x=400, y=200)
+        score += 1
 
+    else:
+        ansMsg = Label(qRoot, text="Incorrect!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0,)
+        ansMsg.place(x=400, y=200) 
+    
+    ansOne.destroy()
+    ansTwo.destroy()
 
+    if skipCount < 3:
+        skipBut.destroy()
 
+    if len(questions[qLCV]) == 5:
+        ansThree.destroy()
+        ansFour.destroy()
 
+    nextBut = Button(qRoot, text="NEXT", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=80, pady=5, borderwidth=0, command=nextQstn)
+    nextBut.place(x=700, y=600)
 
+def nextQstn():
+    qRoot.destroy()
+
+def calcMark():
+    global resultsRoot
+    resultsRoot = Tk()
+    resultsRoot.title("BALAZO SCIENCE QUIZ")
+    resultsRoot.configure(bg="#4a86e8")
+    resultsRoot.geometry('1000x700')
+    pageFont = Font(family="Calibri", size=20, weight="bold")
+    
+    endTitle = Label(resultsRoot, text="QUIZ FINISHED!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
+    endTitle.place(x=300, y=60)
+
+    endResults = Label(resultsRoot, text="QUESTIONS CORRECT:", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
+    endResults.place(x=300, y=400)
 
 setUp()
 
