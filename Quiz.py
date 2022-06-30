@@ -57,12 +57,12 @@ def detQstns():
         qLabel = Label(qRoot, text="Question "+str(qLCV+1-skipCount)+"."+"\n"+questions[qLCV][0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
         qLabel.place(x=500, y=100,anchor="center")
             
-        exitBut = Button(qRoot, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=80, pady=5, borderwidth=0, command=exit)
-        exitBut.place(x=100, y=600)
+        exitBut = Button(qRoot, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=135, pady=5, borderwidth=0, command=exit)
+        exitBut.place(x=20, y=580)
 
         if skipCount < 3:
-            skipBut = Button(qRoot, text="SKIP", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=80, pady=5, borderwidth=0, command=skipQstn)
-            skipBut.place(x=700, y=600)
+            skipBut = Button(qRoot, text="SKIP", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=135, pady=5, borderwidth=0, command=skipQstn)
+            skipBut.place(x=645, y=580)
         
         if len(questions[qLCV]) == 5:
             global temp
@@ -73,28 +73,28 @@ def detQstns():
             temp.append(questions[qLCV][4])
             temp = random.sample(temp, len(temp))
             
-            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(0))
-            ansOne.place(x=270, y=400)
+            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(0))
+            ansOne.place(x=270, y=300, anchor="center")
 
-            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(1))
-            ansTwo.place(x=500, y=400)
+            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(1))
+            ansTwo.place(x=730, y=300, anchor="center")
 
-            ansThree = Button(qRoot, text=temp[2], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(2))
-            ansThree.place(x=270, y=500)
+            ansThree = Button(qRoot, text=temp[2], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(2))
+            ansThree.place(x=270, y=440, anchor="center")
 
-            ansFour = Button(qRoot, text=temp[3], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(3))
-            ansFour.place(x=500, y=500)
+            ansFour = Button(qRoot, text=temp[3], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(3))
+            ansFour.place(x=730, y=440, anchor="center")
         
         else:
             temp = []
             temp.append(questions[qLCV][1])
             temp.append(questions[qLCV][2])
             temp = random.sample(temp, len(temp))
-            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(0))
-            ansOne.place(x=270, y=400)
+            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=30, borderwidth=0, command=lambda:calcScore(0))
+            ansOne.place(x=380, y=400, anchor="center")
 
-            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0, command=lambda:calcScore(1))
-            ansTwo.place(x=500, y=400)
+            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=30, borderwidth=0, command=lambda:calcScore(1))
+            ansTwo.place(x=620, y=400, anchor="center")
                     
 
         qRoot.mainloop()
@@ -138,12 +138,12 @@ def calcScore(answer):
 
     if temp[answer] == questions[qLCV][1]:
         ansMsg = Label(qRoot, text="Correct!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0,)
-        ansMsg.place(x=400, y=200)
+        ansMsg.place(x=500, y=250, anchor="center")
         score += 1
 
     else:
         ansMsg = Label(qRoot, text="Incorrect!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=5, borderwidth=0,)
-        ansMsg.place(x=400, y=200) 
+        ansMsg.place(x=500, y=250, anchor="center") 
     
     ansOne.destroy()
     ansTwo.destroy()
@@ -155,8 +155,8 @@ def calcScore(answer):
         ansThree.destroy()
         ansFour.destroy()
 
-    nextBut = Button(qRoot, text="NEXT", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=80, pady=5, borderwidth=0, command=nextQstn)
-    nextBut.place(x=700, y=600)
+    nextBut = Button(qRoot, text="NEXT", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=135, pady=5, borderwidth=0, command=nextQstn)
+    nextBut.place(x=645, y=580)
 
 def nextQstn():
     qRoot.destroy()
@@ -192,17 +192,17 @@ def calcMark():
         endMsg = resultsMsg[4]
         overallMark = "Invalid"
     
-    endTitle = Label(resultsRoot, text="QUIZ FINISHED!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
-    endTitle.place(x=300, y=60)
+    endTitle = Label(resultsRoot, text="QUIZ FINISHED!", font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=170, pady=30)
+    endTitle.place(x=500, y=90, anchor="center")
 
-    endResults = Label(resultsRoot, text="QUESTIONS CORRECT:\n"+str(score)+"/12\n\nOVERALL MARK:\n"+str(overallMark)+"\n\n"+str(endMsg), font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=25)
-    endResults.place(x=300, y=400)
+    endResults = Label(resultsRoot, text="QUESTIONS CORRECT:\n"+str(score)+"/12\n\nOVERALL MARK:\n"+str(overallMark)+"\n\n"+str(endMsg), font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=60, pady=50)
+    endResults.place(x=500, y=350, anchor="center")
 
-    retryBut = Button(resultsRoot, text="RETRY", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=80, pady=5, borderwidth=0, command=retry)
-    retryBut.place(x=100, y=600)
+    retryBut = Button(resultsRoot, text="RETRY", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=150, pady=10, borderwidth=0, command=retry)
+    retryBut.place(x=90, y=560)
 
-    exitBut = Button(resultsRoot, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=80, pady=5, borderwidth=0, command=exit)
-    exitBut.place(x=700, y=600)
+    exitBut = Button(resultsRoot, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=161, pady=10, borderwidth=0, command=exit)
+    exitBut.place(x=510, y=560)
 
 establishLists()
 
