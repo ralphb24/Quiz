@@ -1,4 +1,5 @@
 from ast import And
+from asyncore import loop
 from doctest import SkipDocTestCase
 from tkinter import *
 import random
@@ -73,17 +74,30 @@ def detQstns():
             temp.append(questions[qLCV][4])
             temp = random.sample(temp, len(temp))
             
-            ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(0))
-            ansOne.place(x=270, y=300, anchor="center")
+            loop = 0 
+            while loop < (len(temp)):
+                if len(temp[loop]) > 21:
+                    smallFont = Font(family="Calibri", size=15, weight="bold")
+                    evenPlacement = 730
+                    oddPlacement = 270
+                    loop += 10
+                else:
+                    smallFont = Font(family="Calibri", size=20, weight="bold")
+                    evenPlacement = 630
+                    oddPlacement = 370 
+                loop += 1
+            
+            ansOne = Button(qRoot, text=temp[0], font=smallFont, fg="#4a86e8", bg="#cfe2f3", padx=30, pady=30, borderwidth=0, command=lambda:calcScore(0))
+            ansOne.place(x=oddPlacement, y=300, anchor="center")
 
-            ansTwo = Button(qRoot, text=temp[1], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(1))
-            ansTwo.place(x=730, y=300, anchor="center")
+            ansTwo = Button(qRoot, text=temp[1], font=smallFont, fg="#4a86e8", bg="#cfe2f3", padx=30, pady=30, borderwidth=0, command=lambda:calcScore(1))
+            ansTwo.place(x=evenPlacement, y=300, anchor="center")
 
-            ansThree = Button(qRoot, text=temp[2], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(2))
-            ansThree.place(x=270, y=440, anchor="center")
+            ansThree = Button(qRoot, text=temp[2], font=smallFont, fg="#4a86e8", bg="#cfe2f3", padx=30, pady=30, borderwidth=0, command=lambda:calcScore(2))
+            ansThree.place(x=oddPlacement, y=440, anchor="center")
 
-            ansFour = Button(qRoot, text=temp[3], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=50, pady=30, borderwidth=0, command=lambda:calcScore(3))
-            ansFour.place(x=730, y=440, anchor="center")
+            ansFour = Button(qRoot, text=temp[3], font=smallFont, fg="#4a86e8", bg="#cfe2f3", padx=30, pady=30, borderwidth=0, command=lambda:calcScore(3))
+            ansFour.place(x=evenPlacement, y=440, anchor="center")
         
         else:
             temp = []
