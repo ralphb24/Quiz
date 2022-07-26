@@ -144,6 +144,11 @@ def setUp():
     menuExit = Button(root, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=134, pady=5, borderwidth=0, command=exit)
     menuExit.place(x=340, y=580)
 
+    menuImageFile = PhotoImage(file="atom.png")
+    menuImageFile = menuImageFile.subsample(2,2)
+    menuImageInput = Label(root, image=menuImageFile, bg="#4a86e8")
+    menuImageInput.place(x=500, y=330, anchor="center")
+
     root.mainloop()
 
 def calcScore(answer):
