@@ -1,27 +1,27 @@
-from ast import And
-from asyncore import loop
-from doctest import SkipDocTestCase
+
+#Imports Python tools and systems that allow for the GUI and random elements of the code.
 from tkinter import *
 import random
-from tkinter import scrolledtext
 from tkinter.font import Font
-from unittest import skip
-from kivy import require
-from matplotlib.markers import MarkerStyle
-from matplotlib.pyplot import close
-from numpy import append
 
+#Function that establishes the quiz questions and answers, end messages, score requirements and marks lists. 
 def establishLists():
     global questionsList
     global resultsMsg
     global markList
-    global requiredScore
-    questionsList = [["Earth is the 3rd planet from the Sun.","True","False"],["How many days does it take for the Earth to revolve around the Sun?","365","366","364","356"],["How long does it take for the Earth to fully rotate around its own axis?","24 hours","25 hours","23 hours","42 hours"],["The moon takes 29.5 days to complete one orbit around the Earth.","True","False"],["Why does the Moon have a greater effect on tides\non Earth compared to the Sun?","Because the Moon is closer to the Earth","Because the Sun is too hot","Because the Moon is smaller","Because the Sun is bright"],["Who was the first human to set foot on the Moon?","Neil Armstrong","Sergey Korsakov","Robert Hines","Samantha Cristoforetti"],["How many kilometres is 1 Astronomical Unit (A.U.)?","150 000 000 km","100 000 000 km","999 999 999 km","500 000 km"],["The moon produces light of its own.","False","True"],["'Gibbous' is used to describe the Moon when more than half (but not all)\nof the Moon is illuminated.","True","False"],["'Waxing' is used to describe the area of the Moon you can see\nbecoming larger each night.","True","False"],["'Waning' is used to describe the area of the Moon you can see\nbecoming smaller each night.","True","False"],["What causes the seasons on Earth?","The Earth's tilt with respect to the Sun","The gravitational pull of the Sun","The speed of which the Earth orbits the Sun","The distance between the Earth and the Sun"],["Regular changes in sea levels (tides) occur due to the\ngravitational pull of the Moon and the Sun.","True","False"],["Which two pieces of evidence did people use to believe that the\nApollo 11 Moon landing was a hoax?","The flag and the stars","The flag and the Sun","The stars and the Sun","Their footprints and astronaut suits"],["How many phases of the Moon are there?","8","6","12","10"],["Which element does the Sun consume to release energy?","Hydrogen","Carbon","Nitrogen","Oxygen"],["Sunspots are areas that appear dark on the Sun.","True","False"],["Which of the following is Pluto considered as?","A dwarf planet","A planet","An asteroid","A comet"],["Astrology is a psuedoscience.","True","False"],["How many planets are there in our solar system?","8","4","15","9"]]
+    global requiredScore    
+
+    #Total number of questions can be changed based on the number of skips used during execution therefore this is not stored as a constant.
+    global totQstns
+    totQstns = 12
+    
+    questionsList = [["Earth is the 3rd planet from the Sun.","True","False"],["How many days does it take for the Earth to revolve around the Sun?","365","366","364","356"],["How long does it take for the Earth to fully rotate around its own axis?","24 hours","25 hours","23 hours","42 hours"],["The moon takes 29.5 days to complete one orbit around the Earth.","True","False"],["Why does the Moon have a greater effect on tides\non Earth compared to the Sun?","Because the Moon is closer to the Earth","Because the Sun is too hot","Because the Moon is smaller","Because the Sun is bright"],["Who was the first human to set foot on the Moon?","Neil Armstrong","Sergey Korsakov","Robert Hines","Samantha Cristoforetti"],["How many kilometres is 1 Astronomical Unit (A.U.)?","150 000 000 km","100 000 000 km","999 999 999 km","500 000 km"],["The moon produces light of its own.","False","True"],["'Gibbous' is used to describe the Moon when more than half (but not all)\nof the Moon is illuminated.","True","False"],["'Waxing' is used to describe the area of the Moon you can see\nbecoming larger each night.","True","False"],["'Waning' is used to describe the area of the Moon you can see\nbecoming smaller each night.","True","False"],["What causes the seasons on Earth?","The Earth's tilt with respect to the Sun","The gravitational pull of the Sun","The speed of which the Earth orbits the Sun","The distance between the Earth and the Sun"],["Regular changes in sea levels (tides) occur due to the\ngravitational pull of the Moon and the Sun.","True","False"],["Which two pieces of evidence did people use to believe that the\nApollo 11 Moon landing was a hoax?","The flag and the stars","The flag and the Sun","The stars and the Sun","Their footprints and astronaut suits"],["How many phases of the Moon are there?","8","6","12","10"],["Which element does the Sun consume to release energy?","Hydrogen","Carbon","Nitrogen","Oxygen"],["Sunspots are areas that appear dark on the Sun.","True","False"],["Which of the following is Pluto considered as?","A dwarf planet","A planet","An asteroid","A comet"],["Astrology is a pseudoscience.","True","False"],["How many planets are there in our solar system?","8","4","15","9"]]
     resultsMsg = ["TOUGH LUCK!","NICE TRY!","WELL DONE!","SPECTACULAR!","Invalid"]
     markList = ["NOT ACHIEVED","ACHIEVED","MERIT","EXCELLENCE"]
     requiredScore = [0,4,7,10,12]
     setUp()
 
+#Function that randomises questions and creates question pages. 
 def detQstns():
     global root
     root.destroy()
@@ -30,10 +30,7 @@ def detQstns():
     qLCV = 0
    
     global questions
-    questions = random.sample(questionsList,15)
-
-    global totQstns
-    totQstns = 12
+    questions = random.sample(questionsList, len(questionsList))
 
     global score
     score = 0 
@@ -104,6 +101,7 @@ def detQstns():
             temp.append(questions[qLCV][1])
             temp.append(questions[qLCV][2])
             temp = random.sample(temp, len(temp))
+            
             ansOne = Button(qRoot, text=temp[0], font=pageFont, fg="#4a86e8", bg="#cfe2f3", padx=80, pady=30, borderwidth=0, command=lambda:calcScore(0))
             ansOne.place(x=380, y=400, anchor="center")
 
@@ -116,6 +114,7 @@ def detQstns():
     
     calcMark()
 
+#Function that codes for the skip button to skip the current question page. 
 def skipQstn():
     global skipCount
     skipCount += 1
@@ -125,6 +124,7 @@ def skipQstn():
     
     qRoot.destroy()
 
+#Function that codes for the main menu page. 
 def setUp():
     global root
     root = Tk()
@@ -151,6 +151,7 @@ def setUp():
 
     root.mainloop()
 
+#Function that determines if a question is correct or incorrect, and increments the user's score if correct.
 def calcScore(answer):
     pageFont = Font(family="Calibri", size=20, weight="bold")
     global score
@@ -177,14 +178,16 @@ def calcScore(answer):
     nextBut = Button(qRoot, text="NEXT", font=pageFont, fg="#ffffff", bg="#6aa84f", padx=135, pady=5, borderwidth=0, command=nextQstn)
     nextBut.place(x=645, y=580)
 
+#Function that codes for "NEXT" button to move on to the next question after an answer is clicked. 
 def nextQstn():
     qRoot.destroy()
 
+#Function that codes for the "RETRY" button on the results page for the user to re-attempt the quiz. 
 def retry():
     resultsRoot.destroy()
     establishLists()
 
-
+#Function that calculates the user's final score, mark and displays the corresponding encouraging message, creating the results page. 
 def calcMark():
     global endMsg
     global overallMark
@@ -223,7 +226,9 @@ def calcMark():
     exitBut = Button(resultsRoot, text="EXIT", font=pageFont, fg="#ffffff", bg="#cc0000", padx=161, pady=10, borderwidth=0, command=exit)
     exitBut.place(x=510, y=560)
 
+#Calls the establishLists function that initiates the program.  
 establishLists()
+
 
 
 
